@@ -16,9 +16,9 @@ info_json = os.path.join(CUR_DIR, "vul_location.json")
 
 vjbench_json = os.path.join(CUR_DIR, "VJBench_data.json")
 
-VUL4J_DIR = "/../../Vul4J_projects/" # the folder contains all the Vul4J projects
 
-VJBENCH_DIR = "/../../VJBench_projects/" # the folder contains all the VJBench projects
+VUL4J_DIR = os.path.join(ROOT_PATH, "Vul4J_projects")  # the folder contains all the Vul4J projects
+VJBENCH_DIR = os.path.join(ROOT_PATH, "VJBench_projects")  # the folder contains all the VJBench projects
 
 
 vul4j_bug_id_list =[1, 3, 4, 5, 6, 7, 8, 10, 12, 18, 19, 20, 22, 23, 25, 26, 30, 39, 40, 41, 43, 44, 46, 47, 50, 53, 55, 57, 59, 61, 64, 65, 66, 73, 74]
