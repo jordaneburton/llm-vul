@@ -1,7 +1,0 @@
-package clm.incoder;
-
-public enum InCoderConfig {
-    INCODER_COMPLETE_CODEFORM_NOCOMMENT,
-
-    INCODER_COMPLETE_CODEFORM_COMMENTFORM_NOCOMMENT,
-}

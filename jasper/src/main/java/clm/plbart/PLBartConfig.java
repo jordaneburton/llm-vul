@@ -1,7 +1,0 @@
-package clm.plbart;
-
-public enum PLBartConfig {
-    PLBART_SEQFORM_MASKFORM_NOCOMMENT,
-
-    PLBART_SEQFORM_COMMENTFORM_NOCOMMENT
-}
