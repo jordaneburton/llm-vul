@@ -19,8 +19,3 @@ The current prototype includes 3 Java vulnerability examples:
 For each example, the program generates:
 - a baseline repair prompt
 - a security-aware repair prompt
-
-## Next Steps
-- Connect prompts to an LLM API
-- Collect generated fixes
-- Evaluate results using compile/test validation
