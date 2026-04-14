@@ -14,6 +14,16 @@ VJBENCH_DIR = "/path/to/VJBench_projects/" # the absolute path to the folder tha
 
 ```
 
+You can use the Dockerfile in the repo to build your own Docker image in order to install all necessary dependencies and setup your environment. First install Docker via a quick install script. Then navigate to this repo's directory and build your image.
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+cd path/to/llm-vul
+
+docker build -t llm-vul-image 
+```
+
 ## Vul4J
 To reproduce the results for Vul4J, please refer to the [Vul4J repository](https://github.com/tuhh-softsec/vul4j) for how to set up.
 A script to help checkout Vul4J vulnerabilities is available at [`./scripts/VUL4J/vul4j_projects.py`](scripts/VUL4J/vul4j_projects.py). These 35 Vul4J vulnerabilities are used in our study: VUL4J-1, 3, 4, 5, 6, 7, 8, 10, 12, 18, 19, 20, 22, 23, 25, 26, 30, 39, 40, 41, 43, 44, 46, 47, 50, 53, 55, 57, 59, 61, 64, 65, 66, 73, 74.
