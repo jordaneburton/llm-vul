@@ -14,13 +14,19 @@ VJBENCH_DIR = "/path/to/VJBench_projects/" # the absolute path to the folder tha
 
 ```
 
-You can use the Dockerfile in the repo to build your own Docker image in order to install all necessary dependencies and setup your environment. First install Docker via a quick install script. Then navigate to this repo's directory and build your image.
+You can use the Dockerfile in the repo to build your own Docker image in order to install all necessary dependencies and setup your environment. First install Docker via a quick install script. Then you can create a docker group and add your user. Finally, you'll navigate to this repo's directory and build your image.
 ```bash
+# Quick Install Scripts for downloading Docker
+# This method is useful for short-term demo purposes, but NOT long-term projects
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
-cd path/to/llm-vul
+# Create a new docker group and add your own user
+sudo groupadd docker
+sudo usermod -aG docker $USER
 
+# Navigate to this repo and build your docker image
+cd path/to/llm-vul
 docker build -t llm-vul-image 
 ```
 
