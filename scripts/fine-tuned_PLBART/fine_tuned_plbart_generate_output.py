@@ -3,7 +3,7 @@ import json
 import sys
 from pathlib import Path
 
-PLBART_FINETUNE_DIR = os.path.abspath(__file__)[: os.path.abspath(__file__).rindex('/') + 1]
+PLBART_FINETUNE_DIR = os.path.dirname(os.path.abspath(__file__)) + os.sep
 
 sys.path.insert(1, PLBART_FINETUNE_DIR+'../') # utils file
 from util import vjbench_bug_id_list,vul4j_bug_id_list

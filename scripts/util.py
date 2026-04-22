@@ -8,7 +8,7 @@ from pathlib import Path
 from xml.etree.ElementTree import parse
 DEBUG = False
 
-CUR_DIR = os.path.abspath(__file__)[: os.path.abspath(__file__).rindex('/') + 1] 
+CUR_DIR = os.path.dirname(os.path.abspath(__file__)) + os.sep
 
 ROOT_PATH = Path(CUR_DIR).parent.absolute()
 
