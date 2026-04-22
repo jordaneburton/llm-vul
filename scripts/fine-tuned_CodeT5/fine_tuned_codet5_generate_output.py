@@ -11,8 +11,8 @@ from transformers import RobertaTokenizer, T5ForConditionalGeneration
 this_max_new_tokens = 512
 
 def generate_codet5_finetune_output(input_file, output_file, model_dir, model_name, num_output=10):
-    tokenizer = RobertaTokenizer.from_pretrained(os.path.abspath(os.path.join(model_dir,'codet5-large-finetune')), local_files_only=True) # 'Salesforce/codet5-large'
-    model = T5ForConditionalGeneration.from_pretrained(os.path.abspath(os.path.join(model_dir, model_name)), local_files_only=True).to(device)
+    tokenizer = RobertaTokenizer.from_pretrained(os.path.join(model_dir,'codet5-large')) # 'Salesforce/codet5-large'
+    model = T5ForConditionalGeneration.from_pretrained(os.path.join(model_dir,  model_name)).to(device)
 
     codet5_output = json.load(open(input_file, 'r'))
     codet5_output['model'] = model_name
