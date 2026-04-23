@@ -14,8 +14,8 @@ this_max_new_tokens = 512
 bug_range_list =  vjbench_bug_id_list+vul4j_bug_id_list
 
 def generate_plbart_finetune_output(input_file, output_file, model_dir, model_name, num_output=10):
-    tokenizer = PLBartTokenizer.from_pretrained(os.path.join(model_dir ,"plbart-large"), src_lang="java", tgt_lang="java")
-    model = PLBartForConditionalGeneration.from_pretrained(os.path.join(model_dir ,model_name)).to(device)
+    tokenizer = PLBartTokenizer.from_pretrained('uclanlp/plbart-large', src_lang="java", tgt_lang="java")
+    model = PLBartForConditionalGeneration.from_pretrained('uclanlp/plbart-large').to(device)
     
     plbart_output = json.load(open(input_file, 'r'))
     plbart_output['model'] = model_name

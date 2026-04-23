@@ -16,8 +16,8 @@ bug_range_list =  vjbench_bug_id_list+vul4j_bug_id_list
 
 
 def generate_codegen_finetune_output(input_file, output_file,model_dir,  model_name, num_output=10):
-    tokenizer = AutoTokenizer.from_pretrained(os.path.join(model_dir, 'codegen-6B-multi'))
-    model = CodeGenForCausalLM.from_pretrained(os.path.join(model_dir, model_name) )#.to(device_ids[0])
+    tokenizer = AutoTokenizer.from_pretrained('Salesforce/codegen-6B-multi')
+    model = CodeGenForCausalLM.from_pretrained('Salesforce/codegen-6B-multi')#.to(device_ids[0])
     model.parallelize(device_map)
     
     codegen_output = json.load(open(input_file, 'r'))

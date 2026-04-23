@@ -13,8 +13,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 this_max_new_tokens = 512
 
 def generate_incoder_finetune_output(input_file, output_file,model_dir, model_name, num_output=10):
-    tokenizer = AutoTokenizer.from_pretrained(os.path.join(model_dir ,'incoder-6B') )# 'facebook/'
-    model = AutoModelForCausalLM.from_pretrained(os.path.join(model_dir ,model_name))
+    tokenizer = AutoTokenizer.from_pretrained('facebook/incoder-6B')
+    model = AutoModelForCausalLM.from_pretrained('facebook/incoder-6B')
     model.parallelize(device_map)
     
     incoder_output = json.load(open(input_file, 'r'))
