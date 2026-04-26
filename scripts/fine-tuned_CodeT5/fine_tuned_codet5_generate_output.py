@@ -7,12 +7,14 @@ CODET5_FINETUNE_DIR = os.path.abspath(__file__)[: os.path.abspath(__file__).rind
 
 sys.path.insert(1, CODET5_FINETUNE_DIR+'../') # utils file
 import torch
-from transformers import RobertaTokenizer, T5ForConditionalGeneration
+from transformers import AutoTokenizer, RobertaTokenizer, T5ForConditionalGeneration
+
+LOCAL_CODET5_LARGE = os.path.join(CODET5_FINETUNE_DIR, '../../models/codet5-large')
 this_max_new_tokens = 512
 
 def generate_codet5_finetune_output(input_file, output_file, model_dir, model_name, num_output=10):
-    tokenizer = RobertaTokenizer.from_pretrained('Salesforce/codet5-large')
-    model = T5ForConditionalGeneration.from_pretrained('Salesforce/codet5-large').to(device)
+    tokenizer = AutoTokenizer.from_pretrained(LOCAL_CODET5_LARGE)
+    model = T5ForConditionalGeneration.from_pretrained(LOCAL_CODET5_LARGE, weights_only=False).to(device)
 
     codet5_output = json.load(open(input_file, 'r'))
     codet5_output['model'] = model_name
@@ -48,8 +50,8 @@ if __name__ == '__main__':
             "rename_only", 
             "rename+code_structure",
             "original"]:
-        device = 0
-        input_file = os.path.join(CODET5_FINETUNE_DIR,"inputs","input-finetune-{}.json".format( trans))
+        device = 0 if torch.cuda.is_available() else 'cpu'
+        input_file = os.path.join(CODET5_FINETUNE_DIR,"inputs","input-{}.json".format( trans))
         output_dir = os.path.join(CODET5_FINETUNE_DIR,"outputs")
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
