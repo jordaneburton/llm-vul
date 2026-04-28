@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 from util import VJBENCH_DIR
 import argparse
-SCRIPTS_DIR = os.path.abspath(__file__)[: os.path.abspath(__file__).rindex('/') + 1]
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__)) + os.sep
 vjbench_json = os.path.join(SCRIPTS_DIR,"VJBench_data.json")
 
 def checkout_vul(vjbench_id):

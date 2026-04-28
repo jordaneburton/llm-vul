@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 import multiprocessing
 
-PLBART_FINETUNE_DIR = os.path.abspath(__file__)[: os.path.abspath(__file__).rindex('/') + 1] 
+PLBART_FINETUNE_DIR = os.path.dirname(os.path.abspath(__file__)) + os.sep
 sys.path.insert(1, PLBART_FINETUNE_DIR+'../') # utils file
 
 from util import  cve_test_java_file, cve_compile_java_file, VJBENCH_DIR , info_json, vjbench_json, ROOT_PATH
@@ -15,13 +15,13 @@ from util import extract_correct_method_code, translate_code, cve_name_to_int
 
 validation_folder = os.path.join(ROOT_PATH, "Model_patches","validation", "fine_tuned_plbart_vjbench")
 if not os.path.exists(validation_folder):
-    os.mkdir(validation_folder)
+    os.makedirs(validation_folder, exist_ok=True)
 
 
 def plbart_output_to_patch(output):
     return output.strip()
                             
-def validate_plbart_vjbench( vul_id):
+def validate_plbart_vjbench(vul_id, trans, plbart_result, plbart_output_file):
     if isinstance(vul_id, str):
         raw_vul_id = "VUL4J-{}".format(cve_name_to_int[vul_id])
     else:
@@ -53,13 +53,15 @@ def validate_plbart_vjbench( vul_id):
             p =  subprocess.Popen(restore_cmd.split(), cwd=project_path,stdout=subprocess.PIPE)
             p.wait()
 
-    with open(buggy_file_path, "r") as f:
+    with open(buggy_file_path, "r", encoding="utf-8", errors="ignore") as f:
         lines = f.readlines()
 
 
     validation_result = []
     code_before, code_after, flag = extract_correct_method_code(vul_id, trans)
     if not flag:
+        return
+    if vul_id not in plbart_result["data"]:
         return
     results = plbart_result["data"][vul_id]
     prompt = results["input"]
@@ -115,7 +117,7 @@ def validate_plbart_vjbench( vul_id):
                 generated_code = translate_code(generated_code,vul_id)
                 vdict["translated"] = generated_code
 
-            with open(buggy_file_path, "w") as f:
+            with open(buggy_file_path, "w", encoding="utf-8", errors="ignore") as f:
                 f.writelines(lines[:buggy_method_start-1])
                 f.writelines(code_before)
                 f.write(generated_code)
@@ -142,7 +144,7 @@ def validate_plbart_vjbench( vul_id):
             with open(validation_result_file, "w") as f:
                 json.dump(plbart_result["data"][vul_id], f, indent=4)
             # exit()
-    with open(buggy_file_path, "w") as f:
+    with open(buggy_file_path, "w", encoding="utf-8", errors="ignore") as f:
         f.writelines(lines)
             
 # main funtion:
@@ -155,6 +157,6 @@ if __name__ == '__main__':
                 plbart_result = json.load(f)
             # validate_plbart_vjbench("Halo-1")
             # exit()
-            p = multiprocessing.Pool(1)
-            p.map(validate_plbart_vjbench, cve_name_to_int )
+            for vul_id in cve_name_to_int:
+                validate_plbart_vjbench(vul_id, trans, plbart_result, plbart_output_file)
             print("Validatoin finished")

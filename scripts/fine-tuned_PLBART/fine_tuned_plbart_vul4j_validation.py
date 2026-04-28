@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 import multiprocessing
 
-PLBART_FINETUNE_DIR = os.path.abspath(__file__)[: os.path.abspath(__file__).rindex('/') + 1]
+PLBART_FINETUNE_DIR = os.path.dirname(os.path.abspath(__file__)) + os.sep
 sys.path.insert(1, PLBART_FINETUNE_DIR+'../') # utils file
 
 from util import vul4j_compile_java_file, vul4j_test_java_file,vul4j_bug_id_list, ROOT_PATH, info_json, VUL4J_DIR
@@ -15,7 +15,7 @@ from util import extract_correct_method_code, translate_code
 
 validation_folder = os.path.join(ROOT_PATH, "Model_patches","validation", "fine_tuned_plbart_vul4j")
 if not os.path.exists(validation_folder):
-    os.mkdir(validation_folder)
+    os.makedirs(validation_folder, exist_ok=True)
 
 
 

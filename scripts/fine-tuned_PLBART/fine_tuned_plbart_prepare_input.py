@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import sys
 import re
-PLBART_FINETUNE_DIR = os.path.abspath(__file__)[: os.path.abspath(__file__).rindex('/') + 1]
+PLBART_FINETUNE_DIR = os.path.dirname(os.path.abspath(__file__)) + os.sep
 JAVA_DIR = PLBART_FINETUNE_DIR + '../../jasper/'
 sys.path.insert(1, PLBART_FINETUNE_DIR+'../') # utils file
 
@@ -24,7 +24,7 @@ def command(cmd):
 def get_plbart_finetune_input(buggy_file, rem_start, rem_end, tmp_file):
     os.chdir(JAVA_DIR)
     command([
-        'java', '-cp', '.:target:lib/*', 'clm.finetuning.FineTuningData', 'inference',
+        'java', '-cp', '.;target;lib/*', 'clm.finetuning.FineTuningData', 'inference',
         buggy_file, str(rem_start), str(rem_end), tmp_file
     ])
 
@@ -98,8 +98,9 @@ def generate_plbart_finetune_input(output_file,obs):
             'input': inputs,
         }
         
-        command(['rm', '-rf', tmp_file])
-        command(['rm', '-rf', tmp_code_file])
+        for f in [tmp_file, tmp_code_file]:
+            if os.path.exists(f):
+                os.remove(f)
         json.dump(plbart_input, open(output_file, 'w'), indent=2)      
         
 
