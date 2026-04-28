@@ -85,28 +85,49 @@ def test_vul(vjbench_id):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('method', type=str, help="checkout, compile, test")
-    parser.add_argument('vul_id', type=str, help="VJBench id")
+    parser.add_argument('vul_id', type=str, help="VJBench id or 'all' to process all repositories")
     # method should only be checkout, compile, test
     args = parser.parse_args()
     method = args.method
     vul_id = args.vul_id
-    if method == "checkout":
-        checkout_vul(vul_id)
-    elif method == "compile":
-        compile_vul(vul_id)
-    elif method == "test":
-        test_vul(vul_id)
-    else:
+    
+    # Validate method
+    if method not in ["checkout", "compile", "test"]:
         print("Please input: checkout, compile, test")
         sys.exit(1)
+    
+    # Load VJBench data
     with open(vjbench_json) as f:
         vjbench_data = json.load(f)
-    # make sure vul_id is in the json file
-    if vul_id not in vjbench_data:
-        print("Please input a valid vul_id")
-        sys.exit(1)
-    # checkout_vul(vul_id)
-    # compile_vul(vul_id)
-    # test_vul(vul_id)
+    
+    # Handle 'all' argument
+    if vul_id.lower() == "all":
+        vul_ids = sorted(vjbench_data.keys())
+        print(f"Processing {len(vul_ids)} VJBench repositories...")
+        for idx, vid in enumerate(vul_ids, 1):
+            print(f"\n[{idx}/{len(vul_ids)}] Processing {vid}...")
+            try:
+                if method == "checkout":
+                    checkout_vul(vid)
+                elif method == "compile":
+                    compile_vul(vid)
+                elif method == "test":
+                    test_vul(vid)
+                print(f"✓ Successfully completed {method} for {vid}")
+            except Exception as e:
+                print(f"✗ Error processing {vid}: {e}")
+                continue
+    else:
+        # make sure vul_id is in the json file
+        if vul_id not in vjbench_data:
+            print("Please input a valid vul_id")
+            sys.exit(1)
+        
+        if method == "checkout":
+            checkout_vul(vul_id)
+        elif method == "compile":
+            compile_vul(vul_id)
+        elif method == "test":
+            test_vul(vul_id)
 
 
