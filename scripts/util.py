@@ -210,9 +210,13 @@ def vul4j_test_java_file(working_directory, cmd):
 def cve_compile_java_file(working_directory, cmd):
     print(working_directory)
     print( cmd)
-    
-    cmd = cmd.split()
-    p3 = subprocess.Popen(cmd, cwd=working_directory,stdout=subprocess.PIPE)
+
+    import sys as _sys
+    if _sys.platform == 'win32':
+        cmd = cmd.replace('./gradlew', 'gradlew.bat')
+        p3 = subprocess.Popen(cmd, cwd=working_directory, stdout=subprocess.PIPE, shell=True)
+    else:
+        p3 = subprocess.Popen(cmd.split(), cwd=working_directory, stdout=subprocess.PIPE)
     out3, err = p3.communicate()
     # print("@compile", p3 )
     print("@@compile.returncode", type(p3.returncode),p3.returncode)
@@ -240,9 +244,13 @@ def cve_test_java_file(working_directory, cmd):
     # cmd = "timeout 30m " +cmd
     # print(cmd)
     time_start = time.time()
-    cmd = cmd.split()
+    import sys as _sys
+    if _sys.platform == 'win32':
+        cmd = cmd.replace('./gradlew', 'gradlew.bat')
+        p4 = subprocess.Popen(cmd, cwd=working_directory, stdout=subprocess.PIPE, shell=True)
+    else:
+        p4 = subprocess.Popen(cmd.split(), cwd=working_directory, stdout=subprocess.PIPE)
     print(cmd)
-    p4 = subprocess.Popen(cmd, cwd=working_directory,stdout=subprocess.PIPE)
     timeout_sec = 1800
     timer = Timer(timeout_sec, p4.kill)
     try:
