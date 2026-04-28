@@ -3,7 +3,7 @@ import json
 import sys
 from pathlib import Path
 
-PLBART_FINETUNE_DIR = os.path.abspath(__file__)[: os.path.abspath(__file__).rindex('/') + 1]
+PLBART_FINETUNE_DIR = os.path.dirname(os.path.abspath(__file__)) + os.sep
 
 sys.path.insert(1, PLBART_FINETUNE_DIR+'../') # utils file
 from util import vjbench_bug_id_list,vul4j_bug_id_list
@@ -31,9 +31,10 @@ def generate_plbart_finetune_output(input_file, output_file, model_dir, model_na
         try:
             generated_ids = model.generate(
                 input_ids, max_new_tokens=this_max_new_tokens, num_beams=num_output, num_return_sequences=num_output, 
-                early_stopping=True, decoder_start_token_id=tokenizer.lang_code_to_id["java"]
+                early_stopping=True, decoder_start_token_id=tokenizer.lang_code_to_id.get("java", tokenizer.lang_code_to_id.get("__java__"))
             )
         except Exception as e:
+            print(f'ERROR on {filename}: {e}')
             continue
         output = []
         for generated_id in generated_ids:
@@ -48,7 +49,7 @@ def generate_plbart_finetune_output(input_file, output_file, model_dir, model_na
 # main funtion:
 if __name__ == '__main__':
     model_dir = sys.argv[1]
-    device = 0
+    device = 'cpu'
     for trans in [
             "structure_change_only", 
             "rename_only", 
