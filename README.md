@@ -166,4 +166,17 @@ keywords = {Automated Program Repair, Vulnerability, AI and Software Engineering
 location = {Seattle, WA, USA},
 series = {ISSTA 2023}
 }
+
 ```
+
+
+## Run the code
+
+We purposely made this repo specifically for windows. To run this program first checkout all the repos for VJbench and vul4j and then these repos should go into sub directories called Vul4J_projects and VJbench_projects. Inside the scripts directory there is a python file called build_vjbench.py that when ran checks out all the VJbench repos. However, you must install vul4j to check out all the vul4j repos. Follow the above vul4j section for more instructions. Once all the repos are installed you can follow the usage section to run the program.
+
+
+
+
+
+
+
