@@ -2,6 +2,28 @@
 
 This repository contains the artifact of paper "How Effective are Neural Networks for Fixing Security Vulnerabilities?" published in ISSTA 2023 by Yi Wu, Nan Jiang, Hung Viet Pham, Thibaud Lutellier, Jordan Davis, Lin Tan, Petr Babkin, and Sameena Shah. 
 
+## Run the code
+
+
+We purposely modified this repo specifically for windows. 
+This project requires you to run Python 3.10 or below. The command 'python -V' should show you your running version.
+Once Python 3.10 is being used, you can download all the dependencies using the requirements.txt.
+```
+python3 install -r requirements.txt
+```
+
+
+To run this program first checkout and compile all the repos for VJBench by using the
+```
+python3 ./scripts/build_vjbench checkout all
+python3 ./scripts/build_vjbench compile all
+```
+
+
+Once all the repos are installed you can follow the usage section to run the program.
+First you'll download your model into a /models directory. Then you'll run the corresponding scripts from the usage section
+(ie. python3 ./scripts/fine_tuned_MODEL_NAME/fine_tuned_MODEL_NAME_prepare_input.py, etc.)
+
 
 ## Setup
 Please modifying the following paths in [`scripts/util.py`](scripts/util.py) to your own path.
@@ -24,6 +46,7 @@ VJBench consists of 42 reproducible vulnerabilities, which are listed in [`VJBen
 
 ### Dependency
 
+- Python 3.10 or below
 - Apache Maven 3.8.6
 - Java 8
 - Gradle 3.1
@@ -170,9 +193,18 @@ series = {ISSTA 2023}
 ```
 
 
-## Run the code
 
-We purposely modified this repo specifically for windows. To run this program first checkout all the repos for VJbench and vul4j and then these repos should go into sub directories called Vul4J_projects and VJbench_projects. Inside the scripts directory there is a python file called build_vjbench.py that when ran checks out all the VJbench repos. However, you must install vul4j to check out all the vul4j repos. Follow the above vul4j section for more instructions. Once all the repos are installed you can follow the usage section to run the program.
+
+
+
+
+
+ 
+
+
+
+
+
 
 
 
