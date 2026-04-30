@@ -24,6 +24,16 @@ Once all the repos are installed you can follow the usage section to run the pro
 First you'll download your model into a /models directory. Then you'll run the corresponding scripts from the usage section
 (ie. python3 ./scripts/fine_tuned_MODEL_NAME/fine_tuned_MODEL_NAME_prepare_input.py, etc.)
 
+## Results 
+
+Transformation	Test Success	Compile Success	Uncompilable
+original	3	8	129
+rename only	5	11	124
+structure change only	3	6	131
+rename + structure	1	9	120
+Total	12	34	504
+
+
 
 ## Setup
 Please modifying the following paths in [`scripts/util.py`](scripts/util.py) to your own path.
