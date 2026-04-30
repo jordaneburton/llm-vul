@@ -13,10 +13,11 @@ python3 install -r requirements.txt
 ```
 
 
-To run this program first checkout and compile all the repos for VJBench by using the
+To run this program first checkout and compile all the repos for VJBench and Vul4J by using these commands
 ```
 python3 ./scripts/build_vjbench checkout all
 python3 ./scripts/build_vjbench compile all
+python3 ./scripts/VUL4J/vul4j_projects.py
 ```
 
 
@@ -34,6 +35,15 @@ First you'll download your model into a /models directory. Then you'll run the c
 | structure change only | 3 | 6 | 131 |
 | rename + structure | 1 | 9 | 120 |
 | **Total** | **12** | **34** | **504** |
+
+### Qwen3-4B Model Results
+| Transformation | Test Success | Compile Success | Uncompilable |
+|----------------|--------------|-----------------|--------------|
+| original | 0 | 0 | 140 |
+| rename only | 0 | 0 | 140 |
+| structure change only | 0 | 0 | 140 |
+| rename + structure | 0 | 1 | 139 |
+| **Total** | **0** | **1** | **559** |
 
 
 
