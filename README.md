@@ -45,6 +45,33 @@ First you'll download your model into a /models directory. Then you'll run the c
 | rename + structure | 0 | 1 | 139 |
 | **Total** | **0** | **1** | **559** |
 
+### TinyLlama-1.1B Model Results
+| Transformation | Test Success | Compile Success | Uncompilable |
+|----------------|--------------|-----------------|--------------|
+| original | 0 | 0 | 140 |
+| rename only | 0 | 0 | 140 |
+| structure change only | 0 | 0 | 140 |
+| rename + structure | 0 | 0 | 140 |
+| **Total** | **0** | **0** | **560** |
+
+### Phi-4-mini Model Results
+| Transformation | Test Success | Compile Success | Uncompilable |
+|----------------|--------------|-----------------|--------------|
+| original | 0 | 0 | 140 |
+| rename only | 0 | 0 | 140 |
+| structure change only | 0 | 0 | 140 |
+| rename + structure | 0 | 0 | 140 |
+| **Total** | **0** | **0** | **560** |
+
+### Gemma-4-E4B Model Results
+| Transformation | Test Success | Compile Success | Uncompilable |
+|----------------|--------------|-----------------|--------------|
+| original | 0 | 0 | 140 |
+| rename only | 0 | 0 | 140 |
+| structure change only | 0 | 0 | 140 |
+| rename + structure | 0 | 0 | 140 |
+| **Total** | **0** | **0** | **560** |
+
 
 
 ## Setup
